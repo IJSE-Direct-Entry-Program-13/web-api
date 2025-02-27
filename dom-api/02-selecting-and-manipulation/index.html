@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selecting and Manipulation</title>
+    <script defer src="js/main.js"></script>
+    <style>
+        #tbl-customers {
+            border: 1px solid black;
+            border-collapse: collapse;
+
+            tr, th, td {
+                border: 1px solid black;
+            }
+
+            th, td {
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+  <h1>Selecting and Manipulation</h1>
+  <ul id="ul-1">
+    <li>First Item</li>
+    <li id="li-2">Second Item</li>
+    <li>Third Item</li>
+  </ul>
+  <hr>
+<!-- table>(thead>tr>th*3)+tbody>tr*3>td*3 -->
+  <table id="tbl-customers">
+      <thead>
+      <tr>
+          <th>ID</th>
+          <th>NAME</th>
+          <th>ADDRESS</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td>C001</td>
+          <td>Kasun</td>
+          <td>Galle</td>
+      </tr>
+      <tr>
+          <td>C002</td>
+          <td>Nuwan</td>
+          <td>Matara</td>
+      </tr>
+      <tr style="background-color: yellow;">
+          <td>C003</td>
+          <td>Ruwan</td>
+          <td>Panadura</td>
+      </tr>
+      </tbody>
+  </table>
+  <hr>
+  <ul id="ul-2" style="border: 1px solid black;">
+      <li>First Item</li>
+      <li>Second Item</li>
+      <li>Third Item</li>
+  </ul>
+</body>
+</html>
