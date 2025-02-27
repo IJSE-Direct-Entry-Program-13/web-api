@@ -1,6 +1,6 @@
 const particles = [];
 
-for (let i = 0; i < 10; i++) {
+for (let i = 0; i < 50; i++) {
     const particle = document.createElement('div');
     const size = 10 + (Math.random() * 40);
     const x = Math.random() * (innerWidth - size);
@@ -19,7 +19,7 @@ for (let i = 0; i < 10; i++) {
     const r = Math.random() * 256;
     const g = Math.random() * 256;
     const b = Math.random() * 256;
-    particle.style.backgroundColor = `rgb(${r},${g},${b})`;
+    particle.style.backgroundColor = `rgba(${r},${g},${b}, ${0.5 + Math.random()})`;
 
     document.body.append(particle);
     particles.push({
@@ -35,6 +35,10 @@ setInterval(() => {
         const {dx, dy, size, particle} = p;
         particle.style.left = `${particle.offsetLeft + dx}px`;
         particle.style.top = `${particle.offsetTop + dy}px`;
+
+        if ((particle.offsetTop + size) >= innerHeight || (particle.offsetTop) <= 0) p.dy = -dy;
+        if ((particle.offsetLeft + size) >= innerWidth || (particle.offsetLeft) <= 0) p.dx = -dx;
+        if (cursorElm.style.opacity === '0') continue;
 
         const r1 = size / 2;
         const r2 = cursorElm.offsetWidth / 2;
@@ -57,9 +61,6 @@ setInterval(() => {
             particle.style.left = `${particle.offsetLeft + (r1 + r2 - distance) * (p.dx < 0 ? -1 : 1)}px`;
             particle.style.top = `${particle.offsetTop + (r1 + r2 - distance) * (p.dy < 0 ? -1 : 1)}px`;
         }
-
-        if ((particle.offsetTop + size) >= innerHeight || (particle.offsetTop) <= 0) p.dy = -dy;
-        if ((particle.offsetLeft + size) >= innerWidth || (particle.offsetLeft) <= 0) p.dx = -dx;
     }
 }, 50);
 
@@ -67,12 +68,18 @@ const cursorElm = document.createElement('div');
 cursorElm.classList.add('cursor');
 document.body.append(cursorElm);
 
+let tmrId;
+
 addEventListener('mousemove', (e) => {
+    if (tmrId) clearTimeout(tmrId);
     cursorElm.style.opacity = '1';
     cursorElm.style.left = `${e.clientX - cursorElm.offsetWidth / 2}px`;
     cursorElm.style.top = `${e.clientY - cursorElm.offsetHeight / 2}px`;
+    tmrId = setTimeout(()=>{
+        cursorElm.style.opacity = 0;
+    }, 5000);
 });
 
 addEventListener('mouseout', () => {
-    // cursorElm.style.opacity = '0';
+    cursorElm.style.opacity = '0';
 });
