@@ -1,6 +1,6 @@
 const particles = [];
 
-for (let i = 0; i < 50; i++) {
+for (let i = 0; i < 10; i++) {
     const particle = document.createElement('div');
     const size = 10 + (Math.random() * 40);
     const x = Math.random() * (innerWidth - size);
@@ -36,6 +36,26 @@ setInterval(() => {
         particle.style.left = `${particle.offsetLeft + dx}px`;
         particle.style.top = `${particle.offsetTop + dy}px`;
 
+        const r1 = size / 2;
+        const r2 = cursorElm.offsetWidth / 2;
+
+        const x1 = particle.offsetLeft + r1;
+        const y1 = particle.offsetTop + r1;
+
+        const x2 = cursorElm.offsetLeft + r2;
+        const y2 = cursorElm.offsetTop + r2;
+
+        const yDiff = y2 - y1;
+        const xDiff = x2 - x1;
+
+        const distance = Math.hypot(xDiff, yDiff);
+        // const distance = (xDiff * xDiff + yDiff * yDiff) ** (1 / 2);
+
+        if (distance <= (r1 + r2)){
+            p.dx = -dx;
+            p.dy = -dy;
+        }
+
         if ((particle.offsetTop + size) >= innerHeight || (particle.offsetTop) <= 0) p.dy = -dy;
         if ((particle.offsetLeft + size) >= innerWidth || (particle.offsetLeft) <= 0) p.dx = -dx;
     }
@@ -47,11 +67,10 @@ document.body.append(cursorElm);
 
 addEventListener('mousemove', (e)=>{
     cursorElm.style.opacity = '1';
-    cursorElm.classList.remove('cursor-fade');
     cursorElm.style.left = `${e.clientX - cursorElm.offsetWidth / 2}px`;
     cursorElm.style.top = `${e.clientY - cursorElm.offsetHeight / 2}px`;
 });
 
 addEventListener('mouseout', ()=>{
-    cursorElm.classList.add('cursor-fade');
+    // cursorElm.style.opacity = '0';
 });
