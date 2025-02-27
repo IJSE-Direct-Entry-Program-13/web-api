@@ -23,10 +23,10 @@ for (let i = 0; i < 10; i++) {
 
     document.body.append(particle);
     particles.push({
-       particle,
-       size,
-       dx,
-       dy
+        particle,
+        size,
+        dx,
+        dy
     });
 }
 
@@ -51,9 +51,11 @@ setInterval(() => {
         const distance = Math.hypot(xDiff, yDiff);
         // const distance = (xDiff * xDiff + yDiff * yDiff) ** (1 / 2);
 
-        if (distance <= (r1 + r2)){
+        if (distance <= (r1 + r2)) {
             p.dx = -dx;
             p.dy = -dy;
+            particle.style.left = `${particle.offsetLeft + (r1 + r2 - distance) * (p.dx < 0 ? -1 : 1)}px`;
+            particle.style.top = `${particle.offsetTop + (r1 + r2 - distance) * (p.dy < 0 ? -1 : 1)}px`;
         }
 
         if ((particle.offsetTop + size) >= innerHeight || (particle.offsetTop) <= 0) p.dy = -dy;
@@ -65,12 +67,12 @@ const cursorElm = document.createElement('div');
 cursorElm.classList.add('cursor');
 document.body.append(cursorElm);
 
-addEventListener('mousemove', (e)=>{
+addEventListener('mousemove', (e) => {
     cursorElm.style.opacity = '1';
     cursorElm.style.left = `${e.clientX - cursorElm.offsetWidth / 2}px`;
     cursorElm.style.top = `${e.clientY - cursorElm.offsetHeight / 2}px`;
 });
 
-addEventListener('mouseout', ()=>{
+addEventListener('mouseout', () => {
     // cursorElm.style.opacity = '0';
 });

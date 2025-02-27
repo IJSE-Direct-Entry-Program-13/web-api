@@ -33,6 +33,17 @@
             position: absolute;
             opacity: 1;
             transition: opacity 500ms, orange 500ms;
+            animation: cursor 500ms infinite;
+        }
+
+        @keyframes cursor {
+            from {
+                box-shadow: 0 0 4px 0 rgba(255, 242, 0, 0.4);
+            }
+
+            to {
+                box-shadow: 0 0 4px 8px rgba(255, 242, 0, 0.4);
+            }
         }
     </style>
     <script defer src="./js/main.js"></script>
