@@ -1,3 +1,5 @@
+const particles = [];
+
 for (let i = 0; i < 50; i++) {
     const particle = document.createElement('div');
     const size = 10 + (Math.random() * 40);
@@ -20,12 +22,21 @@ for (let i = 0; i < 50; i++) {
     particle.style.backgroundColor = `rgb(${r},${g},${b})`;
 
     document.body.append(particle);
+    particles.push({
+       particle,
+       size,
+       dx,
+       dy
+    });
+}
 
-    setInterval(() => {
+setInterval(() => {
+    for (const p of particles) {
+        const {dx, dy, size, particle} = p;
         particle.style.left = `${particle.offsetLeft + dx}px`;
         particle.style.top = `${particle.offsetTop + dy}px`;
 
-        if ((particle.offsetTop + size) >= innerHeight || (particle.offsetTop) <= 0) dy = -dy;
-        if ((particle.offsetLeft + size) >= innerWidth || (particle.offsetLeft) <= 0) dx = -dx;
-    }, 50);
-}
+        if ((particle.offsetTop + size) >= innerHeight || (particle.offsetTop) <= 0) p.dy = -dy;
+        if ((particle.offsetLeft + size) >= innerWidth || (particle.offsetLeft) <= 0) p.dx = -dx;
+    }
+}, 50);
