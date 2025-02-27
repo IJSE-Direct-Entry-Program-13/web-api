@@ -40,3 +40,18 @@ setInterval(() => {
         if ((particle.offsetLeft + size) >= innerWidth || (particle.offsetLeft) <= 0) p.dx = -dx;
     }
 }, 50);
+
+const cursorElm = document.createElement('div');
+cursorElm.classList.add('cursor');
+document.body.append(cursorElm);
+
+addEventListener('mousemove', (e)=>{
+    cursorElm.style.opacity = '1';
+    cursorElm.classList.remove('cursor-fade');
+    cursorElm.style.left = `${e.clientX - cursorElm.offsetWidth / 2}px`;
+    cursorElm.style.top = `${e.clientY - cursorElm.offsetHeight / 2}px`;
+});
+
+addEventListener('mouseout', ()=>{
+    cursorElm.classList.add('cursor-fade');
+});
