@@ -3,3 +3,8 @@
 **/out
 **/target
 **/node_modules
+**/.firebase
+**/dist
+**/docs
+**/.parcel-cache
+
